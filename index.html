@@ -1,0 +1,219 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ETKAD Workflow Maps</title>
+<style>
+:root{
+  --bg:#15151a; --panel:#1b1b21; --panel2:#212129; --line:#2e2e37;
+  --ink:#eceae6; --ink2:#adaba8; --ink3:#79777c; --ink4:#57555c;
+  --accent:#e0a458; --accent2:#8fbfe0;
+  --shadow:0 10px 34px #00000070;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#faf8f4; --panel:#fffdfa; --panel2:#f2efe9; --line:#e0dcd3;
+    --ink:#22201d; --ink2:#55524d; --ink3:#807c75; --ink4:#a8a49c;
+    --accent:#a8620d; --accent2:#1f6d9e;
+    --shadow:0 8px 26px #2a231a1f;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+main{max-width:960px;margin:0 auto;padding:56px 24px 80px}
+h1{font:400 34px/1.2 var(--serif);margin:0 0 10px;color:var(--ink);letter-spacing:.1px}
+.lede{color:var(--ink2);font-size:16px;line-height:1.65;max-width:68ch;margin:0 0 40px}
+.lede em{font-style:italic;color:var(--ink)}
+h2.section{font:600 11.5px/1.3 var(--sans);text-transform:uppercase;letter-spacing:1.4px;
+  color:var(--ink3);margin:0 0 18px;padding-top:8px;border-top:1px solid var(--line)}
+.cards{display:flex;flex-direction:column;gap:16px;margin-bottom:44px}
+.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:22px 24px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s}
+.card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}
+.card h3{font:400 21px/1.3 var(--serif);margin:0 0 8px;color:var(--ink)}
+.card .dotdesc{color:var(--ink2);font-size:14px;margin:0 0 16px;max-width:70ch}
+.card .dotdesc b{color:var(--ink);font-weight:600}
+.card dl.facts{display:grid;grid-template-columns:88px 1fr;gap:9px 14px;margin:0}
+.card dl.facts dt{font:600 11px var(--sans);text-transform:uppercase;letter-spacing:.6px;
+  color:var(--ink3);margin:0;padding-top:1px}
+.card dl.facts dd{margin:0;color:var(--ink2);font-size:13.5px;line-height:1.55}
+.card dl.facts dd b{color:var(--ink);font-weight:600}
+footer{border-top:1px solid var(--line);padding-top:22px;color:var(--ink3);font-size:13px;
+  line-height:1.7}
+footer a{color:var(--accent2);text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer p{margin:0 0 8px}
+code{background:var(--panel2);border:1px solid var(--line);border-radius:4px;
+  padding:1px 5px;font-size:12.5px}
+.relate{margin:0 0 44px}
+.relate p{color:var(--ink2);font-size:14.5px;line-height:1.7;max-width:78ch;margin:0 0 14px}
+.relate b{color:var(--ink)}
+.glossary{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:20px 24px;margin:0 0 44px}
+.glossary dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0}
+.glossary dt{font:600 14px var(--serif);color:var(--accent);white-space:nowrap;padding-top:1px}
+.glossary dd{margin:0 0 14px;color:var(--ink2);font-size:14px;line-height:1.6;max-width:66ch}
+.glossary dd:last-child{margin-bottom:0}
+.glossary dd b{color:var(--ink);font-weight:600}
+.relate .tablewrap{overflow-x:auto}
+.relate table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px;min-width:560px}
+.relate th{text-align:left;font:600 11px var(--sans);text-transform:uppercase;
+  letter-spacing:.6px;color:var(--ink3);padding:0 14px 8px 0;border-bottom:1px solid var(--line)}
+.relate td{padding:11px 14px 11px 0;border-bottom:1px solid var(--line);
+  color:var(--ink2);vertical-align:top;line-height:1.55}
+.relate td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+</style>
+<main>
+  <h1>ETKAD Workflow Maps</h1>
+  <p class="lede">Can we do for research workflows what Open Syllabus Galaxy did for
+    reading lists? Three attempts, each changing what a dot represents &mdash;
+    <em>a tool</em>, <em>a method</em>, <em>a workflow</em>. None supersedes the
+    others: each has a different node, a different corpus, and answers a
+    different question.</p>
+
+  <h2 class="section">The three maps</h2>
+  <div class="cards">
+
+    <a class="card" href="workflow-galaxy/workflow_galaxy.html">
+      <h3>Workflow Galaxy</h3>
+      <p class="dotdesc">Compares whole workflows &mdash; the unit ETKAD actually
+        publishes. You choose what &ldquo;similar&rdquo; means: same methods, same
+        software, same subject, or same shape (the order steps happen in).</p>
+      <dl class="facts">
+        <dt>Dot</dt><dd>a workflow</dd>
+        <dt>Data</dt><dd>237 workflows &mdash; 108 SSH Open Marketplace + 119
+          Programming Historian + 10 ETKAD</dd>
+        <dt>Shows</dt><dd>which workflows resemble each other, and along which of
+          seven aspects</dd>
+      </dl>
+    </a>
+
+    <a class="card" href="method-galaxy/method_galaxy.html">
+      <h3>Method Galaxy</h3>
+      <p class="dotdesc">Maps the <b>methods</b> used across European digital
+        humanities, with ETKAD's 10 workflows plotted inside that larger map
+        &mdash; the only way to place ten workflows on a map at all.</p>
+      <dl class="facts">
+        <dt>Dot</dt><dd>a method (or, in a second view, an object &mdash; see
+          below)</dd>
+        <dt>Data</dt><dd>6,305 SSH Open Marketplace items, 2,366 of them tagged
+          with a method, plus ETKAD's 10 workflows joined in through a hand-built
+          Estonian&ndash;English TaDiRAH bridge</dd>
+        <dt>Shows</dt><dd>which methods are used together across Europe, and
+          which of the 147 methods ETKAD's workflows never touch (61 of 147, or
+          41%)</dd>
+      </dl>
+    </a>
+
+    <a class="card" href="tool-galaxy/galaxy_map.html">
+      <h3>Tool Galaxy</h3>
+      <p class="dotdesc">The prototype: tests whether the underlying technique
+        &mdash; shared use becomes map proximity &mdash; works at all, on a field
+        with abundant machine-readable data. No humanities content.</p>
+      <dl class="facts">
+        <dt>Dot</dt><dd>a software tool</dd>
+        <dt>Data</dt><dd>1,138 bioinformatics workflows, reduced to 632 distinct
+          tools</dd>
+        <dt>Shows</dt><dd>which tools are used together &mdash; recovers RNA-seq,
+          genome assembly and proteomics as clusters without being told they
+          exist</dd>
+      </dl>
+    </a>
+
+  </div>
+
+  <h2 class="section">Method and object, defined</h2>
+  <div class="glossary">
+    <dl>
+      <dt>Method</dt>
+      <dd>One research activity from <b>TaDiRAH</b> (Taxonomy of Digital
+        Research Activities in the Humanities) &mdash; the controlled vocabulary
+        both the Marketplace and ETKAD use to tag what a piece of work does. Examples:
+        <i>Text Analysis</i>, <i>OCR</i>, <i>Data Mining</i>, <i>Enrichment</i>.
+        147 distinct methods appear across the corpus Method Galaxy is built
+        from.</dd>
+      <dt>Object</dt>
+      <dd>Anything in the SSH Open Marketplace that carries at least one method
+        tag: a <b>tool</b>, a piece of <b>training material</b>, a
+        <b>dataset</b>, a <b>publication</b>, or a <b>workflow</b>. 2,366
+        Marketplace items are tagged objects, plus ETKAD's 10 workflows once
+        joined in &mdash; 2,376 in total. An object is usually tagged with one
+        to three methods; ETKAD's workflows carry 8&ndash;20 each, because a
+        workflow is several steps, not one action.</dd>
+      <dt>Two views</dt>
+      <dd>Method Galaxy can show either space. As <b>methods</b>, a dot is one
+        of the 147 activities, and two methods sit close together when the same
+        objects use both. As <b>objects</b>, a dot is one tool, dataset,
+        publication or workflow, and two objects sit close together when they
+        share methods.</dd>
+    </dl>
+  </div>
+
+  <h2 class="section">How the three relate</h2>
+  <div class="relate">
+    <p>A workflow is carried out as a sequence of steps. Each step is usually
+      describable by one or more <b>methods</b> (the TaDiRAH vocabulary), and a
+      method is sometimes carried out with a particular <b>tool</b>. That gives
+      a top-to-bottom relationship: <b>Workflow Galaxy</b> (whole workflows) sits
+      above <b>Method Galaxy</b> (the vocabulary of steps), which sits above
+      <b>Tool Galaxy</b> (the software layer) &mdash; a hierarchy of what a
+      project does, not three unrelated maps.</p>
+    <p><b>Method Galaxy and Workflow Galaxy</b> share real data: the SSH Open
+      Marketplace, and the same 10 ETKAD workflows. They differ in grain. Method
+      Galaxy indexes every kind of tagged Marketplace object &mdash; tools,
+      training material, datasets, publications, workflows &mdash; 2,366 of
+      them. Workflow Galaxy only looks at the 108 Marketplace items structured
+      as ordered, step-by-step workflows, and even then it does not compare by
+      method alone: shared methods is one of seven features it weighs, alongside
+      shared software, subject, and step order.</p>
+    <p><b>Tool Galaxy</b> shares no data with either. It comes from a separate
+      field &mdash; bioinformatics pipelines from WorkflowHub, Dockstore and
+      nf-core &mdash; because ETKAD's own workflows don't yet have the
+      per-step, machine-readable tool records that life-science pipelines do.
+      It was built first, to prove the underlying technique works, before
+      trying it on humanities data. The connection worth knowing: Workflow
+      Galaxy already matches a gazetteer of Marketplace tool names against
+      workflow text to spot software mentions &mdash; the same kind of tool
+      vocabulary Tool Galaxy is built from, just not yet joined to it.</p>
+    <div class="tablewrap">
+    <table>
+      <tr><th>Map</th><th>Corpus</th><th>Overlaps with</th></tr>
+      <tr>
+        <td>Tool Galaxy</td>
+        <td>1,138 bioinformatics workflows &rarr; 632 tools</td>
+        <td>Nothing. A separate field with no DH content &mdash; the prototype
+          that proved the technique works at all.</td>
+      </tr>
+      <tr>
+        <td>Method Galaxy</td>
+        <td>6,305 SSH Marketplace items, 2,366 tagged with TaDiRAH methods</td>
+        <td><b>Workflow Galaxy</b> &mdash; same 10 ETKAD workflows, same
+          Marketplace source, but sees the <em>full</em> method vocabulary
+          across every tagged item, not only the ones structured as
+          workflows.</td>
+      </tr>
+      <tr>
+        <td>Workflow Galaxy</td>
+        <td>108 Marketplace workflows + 119 Programming Historian + 10 ETKAD</td>
+        <td><b>Method Galaxy</b> &mdash; same 10 ETKAD workflows, but only the
+          108 Marketplace items structured as step-by-step workflows, not its
+          full 2,366-item corpus. Shared methods is one of seven comparison
+          features, not the whole measure.</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <h2 class="section">Further reading</h2>
+  <footer>
+    <p><a href="workflow-galaxy/how_it_works.html">How similarity is computed</a> &mdash;
+      the technical method behind Workflow Galaxy, with a worked example.</p>
+    <p><a href="https://github.com/markmets/etkad-workflow-maps/blob/main/PRESENTATION.md">Presentation notes</a> &mdash; the three maps,
+      where the corpora came from, and the honest answer to &ldquo;only ten of
+      ours?&rdquo;</p>
+    <p><a href="https://github.com/markmets/etkad-workflow-maps/blob/main/README.md">Project README</a> &mdash; why all three maps are
+      kept, and how each was built.</p>
+  </footer>
+</main>
