@@ -165,7 +165,7 @@ def main():
     # ---------------- method space ----------------
     print("\nmethod space (activities):")
     a_weight = {a: acts[a]["n"] for a in act_names}
-    # Label text from Marketplace items only. Including the ten ETKAD titles put
+    # Label text from Marketplace items only. Including the ETKAD titles put
     # fragments of Estonian words ("kasutusv", "imaluse") into cluster labels —
     # ten documents out of 2,376 dominated c-TF-IDF because their vocabulary
     # appears nowhere else in the corpus.

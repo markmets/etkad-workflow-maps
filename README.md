@@ -8,7 +8,7 @@ question. Listed oldest to newest.
 |---|---|---|---|---|
 | [tool-galaxy/](tool-galaxy/) | 5 Aug 2026 | a software tool | 1,138 bioinformatics workflows → 632 tools | which tools are used together |
 | [method-galaxy/](method-galaxy/) | 6 Aug 2026, morning | a method (and, in a second view, an object) | 6,305 SSH Open Marketplace items, 2,366 tagged | which DH methods co-occur, and which ones Estonia does not use |
-| [workflow-galaxy/](workflow-galaxy/) | 6 Aug 2026, afternoon | a workflow | 237 workflows: 108 Marketplace + 119 Programming Historian + 10 ETKAD | which workflows resemble each other, and in what respect |
+| [workflow-galaxy/](workflow-galaxy/) | 6 Aug 2026, afternoon | a workflow | 240 workflows: 108 Marketplace + 119 Programming Historian + 13 ETKAD | which workflows resemble each other, and in what respect |
 
 Workflow Galaxy is the only map whose unit is the thing ETKAD actually
 publishes. Open `workflow-galaxy/workflow_galaxy.html`; the method behind it

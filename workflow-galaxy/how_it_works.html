@@ -67,7 +67,7 @@ that has read the text for meaning. It is counting, carefully.</p>
 every feature is something the record actually states.</p>
 <table>
 <tr><th>Aspect</th><th>A feature is</th><th style="text-align:right">Distinct</th></tr>
-<tr><td><b>Methods</b></td><td>one TaDiRAH activity, e.g. <code>Georeferencing</code></td><td class='n'>121</td></tr><tr><td><b>Kind of work</b></td><td>one of eight goal groups, e.g. <code>Analysis</code></td><td class='n'>8</td></tr><tr><td><b>Software</b></td><td>one software name found in the text, e.g. <code>QGIS</code></td><td class='n'>254</td></tr><tr><td><b>Subject</b></td><td>one keyword or discipline, e.g. <code>folkloristika</code></td><td class='n'>298</td></tr><tr><td><b>Materials</b></td><td>an input or output format, e.g. <code>out:GeoJSON</code></td><td class='n'>30</td></tr><tr><td><b>Order of steps</b></td><td>a position bin or a transition, e.g. <code>pos0:Capture</code>, <code>Analysis&gt;Enrichment</code></td><td class='n'>85</td></tr><tr><td><b>Wording</b></td><td>one of the 30 most distinctive words in its title and description</td><td class='n'>3639</td></tr>
+<tr><td><b>Methods</b></td><td>one TaDiRAH activity, e.g. <code>Georeferencing</code></td><td class='n'>123</td></tr><tr><td><b>Kind of work</b></td><td>one of eight goal groups, e.g. <code>Analysis</code></td><td class='n'>8</td></tr><tr><td><b>Software</b></td><td>one software name found in the text, e.g. <code>QGIS</code></td><td class='n'>225</td></tr><tr><td><b>Subject</b></td><td>one keyword or discipline, e.g. <code>folkloristika</code></td><td class='n'>304</td></tr><tr><td><b>Materials</b></td><td>an input or output format, e.g. <code>out:GeoJSON</code></td><td class='n'>32</td></tr><tr><td><b>Order of steps</b></td><td>a position bin or a transition, e.g. <code>pos0:Capture</code>, <code>Analysis&gt;Enrichment</code></td><td class='n'>86</td></tr><tr><td><b>Wording</b></td><td>one of the 30 most distinctive words in its title and description</td><td class='n'>3340</td></tr>
 </table>
 <p>The sets are unordered and unweighted at this point. <code>Order of steps</code>
 is the one that needs explaining, and it gets a section of its own below.</p>
@@ -77,23 +77,23 @@ is the one that needs explaining, and it gets a section of its own below.</p>
 workflows is strong. So every feature carries an <b>inverse document
 frequency</b> weight:</p>
 <div class="formula">idf(<i>f</i>) = log(1 + N / (1 + df<sub>f</sub>))</div>
-<p>where <i>N</i> = 237 workflows and df is how many of them carry the
+<p>where <i>N</i> = 240 workflows and df is how many of them carry the
 feature. In this corpus that produces:</p>
 <table>
 <tr><th>Commonest methods</th><th style="text-align:right">In</th><th style="text-align:right">Weight</th></tr>
-<tr><td>Machine Learning</td><td class='n'>31</td><td class='n'>2.13</td></tr><tr><td>Natural Language Processing</td><td class='n'>23</td><td class='n'>2.39</td></tr><tr><td>Data Visualization</td><td class='n'>22</td><td class='n'>2.43</td></tr><tr><td>Named Entity Recognition</td><td class='n'>17</td><td class='n'>2.65</td></tr><tr><td>Discovering</td><td class='n'>16</td><td class='n'>2.70</td></tr>
+<tr><td>Machine Learning</td><td class='n'>32</td><td class='n'>2.11</td></tr><tr><td>Natural Language Processing</td><td class='n'>24</td><td class='n'>2.36</td></tr><tr><td>Data Visualization</td><td class='n'>23</td><td class='n'>2.40</td></tr><tr><td>Analyzing</td><td class='n'>17</td><td class='n'>2.66</td></tr><tr><td>Discovering</td><td class='n'>17</td><td class='n'>2.66</td></tr>
 </table>
 <table>
 <tr><th>Rarest methods</th><th style="text-align:right">In</th><th style="text-align:right">Weight</th></tr>
-<tr><td>Posting</td><td class='n'>1</td><td class='n'>4.78</td></tr><tr><td>Persistent Identifier</td><td class='n'>1</td><td class='n'>4.78</td></tr><tr><td>Editing</td><td class='n'>1</td><td class='n'>4.78</td></tr><tr><td>Cropping</td><td class='n'>1</td><td class='n'>4.78</td></tr><tr><td>Organizing</td><td class='n'>1</td><td class='n'>4.78</td></tr>
+<tr><td>Compiling</td><td class='n'>1</td><td class='n'>4.80</td></tr><tr><td>Optical Music Recognition</td><td class='n'>1</td><td class='n'>4.80</td></tr><tr><td>Posting</td><td class='n'>1</td><td class='n'>4.80</td></tr><tr><td>Persistent Identifier</td><td class='n'>1</td><td class='n'>4.80</td></tr><tr><td>Cropping</td><td class='n'>1</td><td class='n'>4.80</td></tr>
 </table>
 <p>A single shared rare method is worth roughly
-2.2&times; a single shared common one — and that
+2.3&times; a single shared common one — and that
 modest ratio is itself worth noticing. <b>No method dominates this corpus.</b> The
-commonest, <code>Machine Learning</code>, appears in only 31
-of 237 workflows (13%), and only
-8 methods reach 15. The 121 methods in
-play are spread thinly across the 183 workflows that
+commonest, <code>Machine Learning</code>, appears in only 32
+of 240 workflows (13%), and only
+11 methods reach 15. The 121 methods in
+play are spread thinly across the 186 workflows that
 declare any, so idf has far less work to do here than it would in a corpus where
 one or two terms were on everything. Weighting still matters for
 <code>Subject</code> and <code>Wording</code>, where the
@@ -114,20 +114,20 @@ verbosity alone.</p>
 
 <h3>Worked example, from the live data</h3>
 <p>The closest cross-source pair by methods alone:</p>
-<pre>A  <b>Ärkamisaja kirjanduslik võrgustik Koidula ja Kreutzwaldi kirjavahe</b>
+<pre>A  <b>Literary Network of the National Awakening Based on the Correspond</b>
    etkad &middot; 9 methods
-B  <b>3D Digital Representations of Heritage Assets</b>
-   sshomp &middot; 11 methods</pre>
+B  <b>Cleaning tabular data with OpenRefine</b>
+   sshomp &middot; 2 methods</pre>
 <table>
 <tr><th>Shared method</th><th style="text-align:right">In</th><th style="text-align:right">Weight</th></tr>
-<tr><td>Enriching</td><td class='n'>11</td><td class='n'>3.03</td></tr><tr><td>Data Cleansing</td><td class='n'>11</td><td class='n'>3.03</td></tr><tr><td>Modeling</td><td class='n'>12</td><td class='n'>2.96</td></tr><tr><td>Collecting</td><td class='n'>14</td><td class='n'>2.82</td></tr><tr><td>Analyzing</td><td class='n'>15</td><td class='n'>2.76</td></tr><tr><td>Data Visualization</td><td class='n'>22</td><td class='n'>2.43</td></tr>
+<tr><td>Data Cleansing</td><td class='n'>11</td><td class='n'>3.04</td></tr><tr><td>Enriching</td><td class='n'>12</td><td class='n'>2.97</td></tr>
 </table>
-<pre>dot product   = 3.03&sup2; + 3.03&sup2; + 2.96&sup2; + 2.82&sup2; + …
-              = <b>48.597</b>
-&#8214;A&#8214; = 9.303   (all 9 of A's methods)
-&#8214;B&#8214; = 11.183   (all 11 of B's methods)
+<pre>dot product   = 3.04&sup2; + 2.97&sup2;
+              = <b>18.080</b>
+&#8214;A&#8214; = 9.028   (all 9 of A's methods)
+&#8214;B&#8214; = 4.252   (all 2 of B's methods)
 
-cosine        = 48.597 / (9.303 &times; 11.183) = <b>0.467</b>   &rarr; shown as 47%</pre>
+cosine        = 18.080 / (9.028 &times; 4.252) = <b>0.471</b>   &rarr; shown as 47%</pre>
 <p>Note that the shared features are squared in the dot product only because both
 vectors carry the same idf weight for a given feature — presence is binary, so
 <code>A<sub>f</sub> &times; B<sub>f</sub> = idf(f)&sup2;</code> whenever both have it,
@@ -137,10 +137,10 @@ and zero otherwise.</p>
 <p>The same calculation runs once per aspect, giving seven numbers for this pair:</p>
 <table>
 <tr><th>Aspect</th><th style="text-align:right">Cosine</th><th style="text-align:right">Your weight</th></tr>
-<tr><td>Methods</td><td class='n'>0.467</td><td class='n'>1.0</td></tr><tr><td>Kind of work</td><td class='n'>0.749</td><td class='n'>0.3</td></tr><tr><td>Software</td><td class='n'>0.000</td><td class='n'>0.8</td></tr><tr><td>Subject</td><td class='n'>0.000</td><td class='n'>0.6</td></tr><tr><td>Materials</td><td class='n'>0.000</td><td class='n'>0.2</td></tr><tr><td>Order of steps</td><td class='n'>0.298</td><td class='n'>0.4</td></tr><tr><td>Wording</td><td class='n'>0.000</td><td class='n'>0.5</td></tr>
+<tr><td>Methods</td><td class='n'>0.471</td><td class='n'>1.0</td></tr><tr><td>Kind of work</td><td class='n'>0.467</td><td class='n'>0.3</td></tr><tr><td>Software</td><td class='n'>0.000</td><td class='n'>0.8</td></tr><tr><td>Subject</td><td class='n'>0.000</td><td class='n'>0.6</td></tr><tr><td>Materials</td><td class='n'>0.000</td><td class='n'>0.2</td></tr><tr><td>Order of steps</td><td class='n'>0.000</td><td class='n'>0.4</td></tr><tr><td>Wording</td><td class='n'>0.000</td><td class='n'>0.5</td></tr>
 </table>
 <div class="formula">similarity = &Sigma; w<sub>f</sub> &middot; cos<sub>f</sub>(A,B) &nbsp;&divide;&nbsp; &Sigma; w<sub>f</sub></div>
-<p>At the default weights that gives <b>0.213</b>, or 21%. Dividing by
+<p>At the default weights that gives <b>0.161</b>, or 16%. Dividing by
 the total weight is what keeps the figure comparable when you turn an aspect off:
 without it, ignoring an aspect would shrink every similarity at once and the
 percentages would stop meaning anything.</p>
@@ -162,8 +162,8 @@ workflow and a 20-step one are comparable.</td></tr>
 directly followed by one tagged Enrichment.</td></tr>
 </table>
 <p>Two workflows about entirely different material score highly here if they
-capture early, analyse in the middle and disseminate late. 44 of
-237 workflows have enough ordered tagging to get these features; the rest are
+capture early, analyse in the middle and disseminate late. 48 of
+240 workflows have enough ordered tagging to get these features; the rest are
 drawn faded when this aspect is weighted, because they have no position in it.</p>
 
 <h2>6. Where the dots are placed is a separate question</h2>
@@ -185,11 +185,11 @@ not from what is on screen.</div>
 could fail. A fifth of each workflow's methods are hidden; its 5 nearest
 neighbours are found using <b>one aspect on its own</b>; the methods of those
 neighbours are pooled and checked against what was hidden. Over
-58 workflows with enough methods to split:</p>
+61 workflows with enough methods to split:</p>
 <table>
 <tr><th>Ranking neighbours by</th><th style="text-align:right">Hidden methods recovered</th></tr>
-<tr><td>Methods *</td><td class='n'>79.2%</td></tr><tr><td>Kind of work *</td><td class='n'>55.8%</td></tr><tr><td>Order of steps</td><td class='n'>49.4%</td></tr><tr><td>Wording</td><td class='n'>48.1%</td></tr><tr><td>Subject</td><td class='n'>44.2%</td></tr><tr><td>Materials</td><td class='n'>40.3%</td></tr><tr><td>Software</td><td class='n'>31.2%</td></tr>
-<tr><td>always guessing the 12 commonest methods</td><td class="n">33.8%</td></tr>
+<tr><td>Methods *</td><td class='n'>81.4%</td></tr><tr><td>Kind of work *</td><td class='n'>59.3%</td></tr><tr><td>Order of steps</td><td class='n'>46.5%</td></tr><tr><td>Wording</td><td class='n'>46.5%</td></tr><tr><td>Subject</td><td class='n'>40.7%</td></tr><tr><td>Materials</td><td class='n'>37.2%</td></tr><tr><td>Software</td><td class='n'>32.6%</td></tr>
+<tr><td>always guessing the 12 commonest methods</td><td class="n">33.7%</td></tr>
 </table>
 <p>* Methods and Kind of work are versions of the answer being tested, so they are
 a ceiling rather than a finding.</p>
@@ -232,8 +232,8 @@ that is exactly the useful finding, and sometimes it is a mirage. The neighbour
 list shows which features produced each match precisely so that you can tell the
 difference yourself.</p>
 
-<p class="foot">Generated 2026-08-06 from
-work/atlas.json &middot; 237 workflows &middot; every figure on this page is
+<p class="foot">Generated 2026-09-25 from
+work/atlas.json &middot; 240 workflows &middot; every figure on this page is
 computed from the same data the map is built from, not written by hand.<br>
 <a href="workflow_galaxy.html">&larr; back to Workflow Galaxy</a></p>
 </div>

@@ -1,12 +1,12 @@
-# Workflow Galaxy — 237 workflows, compared on aspects you choose
+# Workflow Galaxy — 240 workflows, compared on aspects you choose
 
 The unit here is the **workflow**, not the method. The map answers one question —
 *which workflows are like this one?* — and lets you say what you mean by "like".
 
 ```
     tool-galaxy       tool   --used-by-->  workflow      bioinformatics, 632 tool nodes
-    method-galaxy     method --used-by-->  object        DH methods, 147 + 2,376 nodes
-    workflow-galaxy   workflow itself is the node        237 workflows, 7 comparable aspects
+    method-galaxy     method --used-by-->  object        DH methods, 147 + 2,379 nodes
+    workflow-galaxy   workflow itself is the node        240 workflows, 7 comparable aspects
 ```
 
 ## Why this exists and the method galaxy did not settle it
@@ -24,7 +24,7 @@ there were only ten Estonian ones. Two things changed that:
    each lesson's activity verb, topic tags and difficulty, and whose bodies are
    ordered sections — a second corpus of things with steps.
 
-With ETKAD's ten, that is 237 workflows: enough to compare workflows to each other
+With ETKAD's thirteen, that is 240 workflows: enough to compare workflows to each other
 rather than only to a method vocabulary.
 
 ## Choosing what "similar" means
@@ -35,7 +35,7 @@ Seven aspects, each a bag of features, each with a slider:
 |---|---|---|
 | **method** | TaDiRAH activities | workflows that do the same operations |
 | **goal** | the 8 TaDiRAH goal groups | the same operations, coarsely |
-| **tool** | named software, matched against 2,841 Marketplace tool names | the same software stack |
+| **tool** | named software, matched against 2,826 Marketplace tool names | the same software stack |
 | **topic** | keywords, disciplines, EMS subjects | the same subject matter |
 | **material** | input/output formats, media types | the same kind of stuff worked on |
 | **flow** | ordered goal bigrams + position bins | the same *shape*, whatever the subject |
@@ -60,8 +60,8 @@ out in the browser by stress majorisation on your exact weighting, and once you 
 in that mode it follows the sliders live, warm-started from where the dots already
 are so a drag nudges the map instead of throwing it into a new arrangement.
 
-The ten ETKAD workflows are labelled by default so they can be found in a field of
-237 — that is what the `labels` control is for, and turning it to *selection and
+The thirteen ETKAD workflows are labelled by default so they can be found in a field of
+240 — that is what the `labels` control is for, and turning it to *selection and
 neighbours only* removes the special treatment. Source is encoded by shape as well
 as colour, so they stay identifiable without it.
 
@@ -72,52 +72,53 @@ workflow's methods, rank neighbours using **one aspect alone**, pool the methods
 the top 5, and see how many of the hidden ones come back.
 
 ```
-method       79.2%   *derived from the target — a ceiling, not a result
-goal         55.8%   *same
-flow         49.4%   shape alone, no content
-text         48.1%
-topic        44.2%
-material     40.3%
-popularity   33.8%   baseline: always answer with the 12 commonest methods
-tool         31.2%   below the baseline
+method       81.4%   *derived from the target — a ceiling, not a result
+goal         59.3%   *same
+flow         46.5%   shape alone, no content
+text         46.5%
+topic        40.7%
+material     37.2%
+popularity   33.7%   baseline: always answer with the 12 commonest methods
+tool         32.6%   below the baseline
 ```
 
 Two findings sit in that table.
 
 **Shape carries real information.** `flow` knows nothing about subject, wording or
 software — only which kind of operation follows which — and it still predicts a
-workflow's methods better than its topic or its prose. Workflows that proceed the
+workflow's methods as well as its prose does, and better than its topic. Workflows that proceed the
 same way do the same things.
 
-**Tool similarity carries none — it is actively worse than guessing.** Ranking
+**Tool similarity carries none — it is no better than guessing.** Ranking
 neighbours by shared software predicts a workflow's methods *below* the popularity
 baseline. Python, OpenRefine and Voyant are used for everything, so "we use the same
 tools" is not evidence of doing the same work; it is mild evidence of being in the
 same tooling fashion. That is a caution for any registry tempted to recommend by
 tool. (This number moved from 33.8% to 31.2% once the tool matcher was tightened —
-the earlier figure was propped up by false positives.)
+the earlier figure was propped up by false positives — and to 32.6% with 240 workflows
+and a stricter rule for all-caps and Title Case names.)
 
-## The shape of a workflow, on 53 workflows instead of 9
+## The shape of a workflow, on 57 workflows instead of 9
 
 Mean normalised position of each goal, 0 = first step, 1 = last:
 
 ```
-Discovery ....... 0.24   (21 taggings)
-Capture ......... 0.37   (46)
-Interpretation .. 0.42   (38)
-Analysis ........ 0.54   (90)
-Enrichment ...... 0.54   (47)
-Creation ........ 0.56   (25)
-Storage ......... 0.56   (36)
-Dissemination ... 0.75   (22)
+Discovery ....... 0.26   (26 taggings)
+Capture ......... 0.37   (51)
+Interpretation .. 0.42   (45)
+Enrichment ...... 0.50   (54)
+Storage ......... 0.53   (43)
+Analysis ........ 0.54   (101)
+Creation ........ 0.56   (29)
+Dissemination ... 0.76   (25)
 ```
 
-The v1 arc — built from nine Estonian workflows — put Capture first. With 53
+The v1 arc — built from nine Estonian workflows — put Capture first. With 57
 workflows from three sources, **Discovery comes before Capture**: the work starts by
 finding out what exists, not by collecting it. Interpretation arriving early (0.42),
 before analysis rather than after, is the other correction, and it is the one that
 argues hardest against reading these as pipelines. The middle of a run is a flat
-tie between analysis, enrichment, creation and storage — evidence that this is a
+spread between enrichment, storage, analysis and creation (0.50–0.56) — evidence that this is a
 loop, not a sequence.
 
 ## Measured results
@@ -125,10 +126,10 @@ loop, not a sequence.
 ```
 Marketplace /workflows       108 workflows, 729 ordered steps, 48 tagged per step
 Programming Historian        119 lessons, 1,657 ordered sections (front matter cut)
-ETKAD                         10 workflows, 55 stages
-Marketplace full corpus    6,305 items -> gazetteer of 2,841 tool names
-total                        237 workflows
-  with methods               183   with tools 206   with topics 230   with shape 44
+ETKAD                         13 workflows, 84 stages (English versions)
+Marketplace full corpus    6,305 items -> gazetteer of 2,826 tool names
+total                        240 workflows
+  with methods               186   with tools 189   with topics 233   with shape 48
 map                        1.1 MB of self-contained HTML, 8 layouts
 ```
 
@@ -160,7 +161,7 @@ by hand, so it cannot drift out of step with the data.
 
 Writing it turned up a correction worth keeping: I had assumed a few methods would
 dominate and idf would be doing heavy lifting. It isn't. **The commonest method in
-the corpus, `Machine Learning`, is on 31 of 237 workflows (13%)**, and only 8
+the corpus, `Machine Learning`, is on 32 of 240 workflows (13%)**, and only 11
 methods reach 15. The method vocabulary is spread thin, so idf has far less
 leverage here than in `Subject` or `Wording`, where the distributions are steep.
 
@@ -239,28 +240,33 @@ nothing.
   mistaken for a word (a digit, an internal capital, punctuation), so `Word2Vec`
   still finds `word2vec`. This trades recall for precision: some genuine mentions
   are certainly missed.
-- **`material` is nearly empty** — 19 of 237 workflows declare input or output
+- **`material` is nearly empty** — 21 of 240 workflows declare input or output
   formats. The slider works, but it is a facet waiting for data, and it is the one
   most worth pushing on: "what does this workflow take in and give out" is the
   question a registry actually needs, and almost nobody records it.
-- **The shape rests on 53 workflows**, of which 10 are ETKAD's. It is a real
+- **The shape rests on 57 workflows**, of which 13 are ETKAD's. It is a real
   measurement of a small sample, not a fact about digital humanities.
-- **Similar-by-topic is partly similar-by-language.** ETKAD's topics are Estonian
-  strings and match only each other, so the ten cluster together under any topic
-  weighting for a reason that is not intellectual. Weight `method` or `flow` when
-  you want a genuinely cross-lingual comparison.
+- **ETKAD still clusters, and not because of language.** The ETKAD records are
+  built from the English version of each page (the TaDiRAH tags still come from
+  the Estonian page, through the bridge), so wording and subject are compared in
+  English. Under the default weights 68% of an ETKAD workflow's five nearest
+  neighbours are other ETKAD workflows — the same as with the Estonian pages. The
+  cause is tagging density: an ETKAD workflow declares about 14 methods, the
+  rest about 3, and dropping the `method` aspect alone brings the figure down to
+  29%. Some of that is real — one programme, one template — and some is simply
+  that ETKAD describes its work more fully than anyone else.
 - **The translation is still mine.** `vocab.py` carries the same hand-built
   Estonian→English TaDiRAH bridge as the method galaxy and deserves review by
   someone who owns the Estonian vocabulary.
 
 ## Worth doing next
 
-- **Populate `material`.** Input/output format is declared by 19 workflows and it is
+- **Populate `material`.** Input/output format is declared by 21 workflows and it is
   the aspect that would turn the atlas into a real next-step recommender: given
   what you are holding, what can be done to it.
-- **Contribute ETKAD's ten to the Marketplace** as workflows with steps. The model
+- **Contribute ETKAD's thirteen to the Marketplace** as workflows with steps. The model
   fits exactly, and it would put Estonian work into the corpus everyone else
   queries rather than only into our own map.
 - **Join the tool layer.** `tool-galaxy` has 632 tool nodes with co-usage
-  structure; the `tool` facet here has 295 names. The two are the same kind of
+  structure; the `tool` facet here has 225 names. The two are the same kind of
   object and could share an axis.

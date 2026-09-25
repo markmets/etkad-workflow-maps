@@ -183,7 +183,25 @@ TOOL_MATCH_STOP = {
     # Estonian function words that collide with Marketplace tool names.
     # `Ning` is a real platform; it is also the Estonian word for "and".
     "ning", "kaart", "kaardid", "andmed", "tekst", "pilt", "aeg", "koht",
+    # English words that collide, now that the ETKAD text is the English version
+    # of each page. Taken from workflow-galaxy's list, which met them first.
+    "words", "select", "topic", "topics", "topic modeling", "topic modelling",
+    "things", "origin", "icon", "icons", "pattern", "patterns", "concordance",
+    "hypotheses", "annotations", "annotation", "spatial", "sentiment",
+    "similarity", "keywords", "metadata", "citation", "citations",
+    "transcription", "visualisation", "visualization", "classification",
+    "recognition", "processing", "papers", "gazetteer", "dictionary",
+    "encyclopedia", "timeline", "concordancer", "compare", "explore",
 }
+
+
+# A tool name that could not be mistaken for a plain word: a digit, a capital
+# after the first letter, or punctuation inside it. Same as workflow-galaxy.
+# Only a lowercase-to-capital change inside a word counts as an internal
+# capital (OpenRefine, EstNLTK). A capital after a space made Title Case phrases
+# such as "Time Periods" distinctive, and all-caps names such as BASE and TAGS
+# then matched "base form" and "metadata tags".
+DISTINCTIVE = re.compile(r"[0-9]|[a-z][A-Z]|[._/+-]")
 
 
 def tools_named_in_text(text, tool_labels):
@@ -194,8 +212,13 @@ def tools_named_in_text(text, tool_labels):
     guards learned the hard way — do not split on a bare hyphen (it turned
     `english-corpora.org` into `english`, which then matched the page's language
     switcher), and require four characters so short real names like QGIS survive.
+
+    Matching is case-sensitive unless the name could not be mistaken for a word
+    (a digit, an internal capital, punctuation). While the ETKAD text was Estonian,
+    case did not matter; in the English versions Marketplace tools called Topic,
+    Pattern, Processing and Spatial fired on ordinary prose. Same rule as
+    workflow-galaxy's matcher.
     """
-    low = text.lower()
     hits = []
     for pid, label in tool_labels:
         nm = label.strip()
@@ -206,7 +229,8 @@ def tools_named_in_text(text, tool_labels):
         head = re.split(r":| – | — | - |\(", nm)[0].strip()
         if len(head) < 4 or head.lower() in TOOL_MATCH_STOP:
             continue
-        if re.search(r"(?<![\w])" + re.escape(head.lower()) + r"(?![\w])", low):
+        flags = re.I if DISTINCTIVE.search(head) else 0
+        if re.search(r"(?<![\w])" + re.escape(head) + r"(?![\w])", text, flags):
             hits.append({"id": pid, "name": nm})
     return hits[:20]
 
@@ -251,7 +275,8 @@ def main():
     print("  by category:", dict(by_cat))
 
     # --- ETKAD workflows, translated ----------------------------------------
-    # Marketplace tool names, used to find direct mentions in the Estonian prose.
+    # Marketplace tool names, used to find direct mentions in the workflow prose
+    # (the English version of each page where there is one).
     tool_labels = [("shomp:" + it["id"], it["label"]) for it in sshomp["items"]
                    if it["cat"] == "tool-or-service" and it["label"]]
     print(f"\nmatching {len(tool_labels)} Marketplace tool names against workflow prose")
@@ -281,7 +306,7 @@ def main():
             "id": wid, "label": w["title"], "acts": acts, "cat": "etkad-workflow",
             "desc": norm(w.get("text", ""))[:400], "url": w["url"],
             "src": "ETKAD HUM andmelabor", "kw": w.get("content_kw", []),
-            "langs": ["Estonian"], "origin": "etkad",
+            "langs": ["Estonian"], "origin": "etkad", "url_et": w.get("url_et", w["url"]),
             "disciplines": w.get("discipline", []), "output": w.get("output", []),
             "media": w.get("media", []), "licence": w.get("licence", ""),
             "authors": w.get("authors", []), "stages": stages,

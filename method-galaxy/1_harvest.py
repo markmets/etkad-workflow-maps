@@ -6,8 +6,10 @@ TWO SOURCES, ONE SHARED VOCABULARY
 SSH Open Marketplace (marketplace.sshopencloud.eu) holds ~6,300 DH tools,
 datasets, training materials, publications and workflows. Crucially it tags them
 with `tadirah2` — the same TaDiRAH vocabulary ETKAD uses on its own workflow
-pages, in Estonian. That shared vocabulary is what lets ~10 Estonian workflows
-be plotted inside a field of thousands of European DH objects.
+pages, in Estonian. That shared vocabulary is what lets ETKAD's 13 workflows
+be plotted inside a field of thousands of European DH objects. Each workflow is
+read twice: the Estonian page for its TaDiRAH tags (the bridge in 2_extract maps
+those), the English version for everything shown or matched as words.
 
 Everything here is pure HTTP into memory; nothing is cloned and nothing but
 small JSON touches disk. The Marketplace search API returns item properties
@@ -33,19 +35,7 @@ UA = {"User-Agent": "etkad-method-galaxy/1.0 (research prototype)",
 TIMEOUT = 60
 
 ETKAD_BASE = "https://www.etkad.ee/humal/toovood/"
-ETKAD_SLUGS = [
-    "arkamisaja-kirjanduslik-vorgustik-koidula-ja-kreutzwaldi-kirjavahetuse-pohjal",
-    "mineviku-elud-eesti-kultuuriandmetes-19-sajandi-vallakohtute-protokollide-ja-"
-    "bibliograafiliste-andmete-pohjal-interaktiivsete-rakenduste-arendamine",
-    "tartu-ehitusprojektide-interaktiivne-kaart",
-    "teraviljadega-seotud-regilaulude-leviku-analuus-eestis",
-    "muinasjututuubi-0567a-analuus-seto-imemuinasjuttude-korpuses",
-    "eesti-rahvapillimuusika-regionaalsete-ja-ajaliste-mustrite-analuus",
-    "tunes-of-the-world-map-eesti-ja-ukraina-rahvalauluparandi-uurimine",
-    "era-fotoarhiivi-ruumilised-ja-ajalised-mustrid",
-    "suurel-skaalal-ngrammidega",
-    "esemeuurija-toofotodes-peituvate-andmete-kasutusvoimalused",
-]
+ETKAD_BASE_EN = "https://www.etkad.ee/en/humal/toovood/"
 
 
 def http(url, retries=3, as_json=True):
@@ -152,7 +142,7 @@ def harvest_sshomp():
 # Workflow stages are Kadence accordion panes, each with its own title and its
 # own TaDiRAH keyword list — so a workflow is a *sequence* of method steps, not
 # just a bag of tags. That is the structure the constellation view uses.
-STEPS_MARKER = "Töövoo sammud"
+STEPS_MARKER = {"et": "Töövoo sammud", "en": "Workflow steps"}
 
 
 def unescape(s):
@@ -194,35 +184,84 @@ def parse_stages(steps_html):
     return stages
 
 
+def etkad_slugs():
+    """Every workflow in the HumAL list, following its pagination.
+
+    The first version used a fixed list of the ten on page one and never saw
+    the ones on page two.
+    """
+    slugs, page = [], 1
+    while True:
+        html = http(f"{ETKAD_BASE}?query-1-page={page}", as_json=False)
+        new = [m for m in re.findall(re.escape(ETKAD_BASE) + r'([a-z0-9-]+)/"', html)
+               if m != "feed" and m not in slugs]
+        if not new:
+            return slugs
+        slugs += list(dict.fromkeys(new))
+        page += 1
+
+
+def parse_etkad_page(html, lang):
+    # Match the heading element, not the phrase: some pages capitalise it
+    # ("Töövoo Sammud"), and the phrase also turns up in running prose.
+    m = re.search(r">\s*" + STEPS_MARKER[lang] + r"\s*</h\d>", html, re.I)
+    head, steps = (html[:m.start()], html[m.end():]) if m else (html, "")
+    # The post heading, not <title>: the English pages keep the Estonian <title>.
+    title = (re.search(r'class="wp-block-post-title"[^>]*>(.*?)</h1>', html, re.S)
+             or re.search(r"<title>(.*?)</title>", html, re.S))
+    return {
+        "head": head,
+        "title": (unescape(re.sub(r"<[^>]+>", "", title.group(1)))
+                  .split("–")[0].split("|")[0].strip() if title else ""),
+        "tadirah_top": tagged_terms(head, "marksonad"),
+        "tadirah": tagged_terms(html, "marksonad"),   # union incl. stages
+        "discipline": tagged_terms(html, "eriala"),
+        "output": tagged_terms(html, "valjund"),
+        "media": tagged_terms(html, "andmete-meediatuup"),
+        "content_kw": [unescape(re.sub(r"<[^>]+>", "", m.group(1)))
+                       for m in re.finditer(
+                           r'<a[^>]+href="https://ems\.elnet\.ee/[^"]*"[^>]*>(.*?)</a>',
+                           head, re.S)],
+        "stages": parse_stages(steps),
+        "text": strip_tags(html)[:24000],
+    }
+
+
 def harvest_etkad():
     if done("etkad"):
         d = json.load(open(os.path.join(RAW, "etkad.json"), encoding="utf-8"))
         print(f"    cached: {len(d['workflows'])} workflows")
         return len(d["workflows"])
     out = []
-    for slug in ETKAD_SLUGS:
-        url = ETKAD_BASE + slug + "/"
+    for slug in etkad_slugs():
+        url, url_en = ETKAD_BASE + slug + "/", ETKAD_BASE_EN + slug + "/"
         try:
-            html = http(url, as_json=False)
+            et = parse_etkad_page(http(url, as_json=False), "et")
         except Exception as e:                       # noqa: BLE001
             print(f"    !! {slug[:40]}: {type(e).__name__}")
             continue
-        head, _, steps = html.partition(STEPS_MARKER)
-        title = re.search(r"<title>(.*?)</title>", html, re.S)
+        try:
+            en = parse_etkad_page(http(url_en, as_json=False), "en")
+        except Exception as e:                       # noqa: BLE001
+            print(f"    !! {slug[:40]} (English): {type(e).__name__}")
+            en = None
+        # Stage n of one version is stage n of the other; if the counts ever
+        # disagree, keep the Estonian titles rather than misattach them.
+        if en and len(en["stages"]) != len(et["stages"]):
+            print(f"    !! {slug[:40]}: stage counts differ - Estonian titles kept")
+            en = None
+        src = en or et
+        head = et["head"]
         rec = {
-            "slug": slug, "url": url,
-            "title": unescape(title.group(1)).split("–")[0].split("|")[0].strip()
-                     if title else slug,
-            "tadirah_top": tagged_terms(head, "marksonad"),
-            "tadirah": tagged_terms(html, "marksonad"),   # union incl. stages
-            "discipline": tagged_terms(html, "eriala"),
-            "output": tagged_terms(html, "valjund"),
-            "media": tagged_terms(html, "andmete-meediatuup"),
-            "content_kw": [unescape(re.sub(r"<[^>]+>", "", m.group(1)))
-                           for m in re.finditer(
-                               r'<a[^>]+href="https://ems\.elnet\.ee/[^"]*"[^>]*>(.*?)</a>',
-                               head, re.S)],
-            "stages": parse_stages(steps),
+            "slug": slug, "url": url_en if en else url, "url_et": url,
+            "lang": "en" if en else "et",
+            "title": src["title"] or slug, "title_et": et["title"],
+            # TaDiRAH from the Estonian page: that is what ET2EN maps.
+            "tadirah_top": et["tadirah_top"], "tadirah": et["tadirah"],
+            "discipline": src["discipline"], "output": src["output"],
+            "media": src["media"], "content_kw": src["content_kw"],
+            "stages": [dict(s, title=src["stages"][i]["title"])
+                       for i, s in enumerate(et["stages"])],
             "licence": (re.search(r"Litsents:\s*</strong>\s*(?:<a[^>]*>)?([^<]+)", head)
                         or [None, ""])[1].strip(),
             "date": (re.search(r"Kuup[äa]ev[^:]*:\s*</strong>\s*([^<]+)", head)
@@ -230,11 +269,11 @@ def harvest_etkad():
             "authors": [unescape(re.sub(r"<[^>]+>", "", x)) for x in
                         re.findall(r"<li>([^<]*\([^)]*(?:[ÜUÕO]likool|Muuseum|Arhiiv|"
                                    r"Instituut)[^)]*\))</li>", head)][:6],
-            "text": strip_tags(html)[:24000],
+            "text": src["text"],
         }
         out.append(rec)
         print(f"    {rec['title'][:46]:48} tadirah={len(rec['tadirah']):2} "
-              f"stages={len(rec['stages']):2} eriala={len(rec['discipline'])}")
+              f"stages={len(rec['stages']):2} eriala={len(rec['discipline'])} [{rec['lang']}]")
     save("etkad", {"count": len(out), "workflows": out})
     return len(out)
 

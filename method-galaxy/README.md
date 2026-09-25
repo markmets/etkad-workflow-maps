@@ -4,13 +4,15 @@ An interactive map of **digital-humanities research methods**, built from the SS
 Marketplace, with ETKAD's own workflows plotted into it.
 
 The premise is the one the workflow-galaxy prototype could not satisfy: you cannot build a
-map out of ten workflows, but you can **embed ten workflows into somebody else's map**. The
-join is TaDiRAH — the same method vocabulary ETKAD already uses on its workflow pages (in
-Estonian) and the Marketplace uses on 2,366 objects (in English).
+map out of thirteen workflows, but you can **embed thirteen workflows into somebody else's
+map**. The join is TaDiRAH — the same method vocabulary ETKAD already uses on its workflow
+pages (in Estonian) and the Marketplace uses on 2,366 objects (in English). The tags are read
+from the Estonian page of each workflow; titles, stage names, subjects and the prose searched
+for tool names come from its English version.
 
 ```
     workflow-galaxy:  tool   used-by  workflow      -> bioinformatics, 632 nodes
-    method-galaxy:    method used-by  object        -> humanities,   147 + 2,376 nodes
+    method-galaxy:    method used-by  object        -> humanities,   147 + 2,379 nodes
 ```
 
 ## What it shows
@@ -20,7 +22,7 @@ Estonian) and the Marketplace uses on 2,366 objects (in English).
 | Space | Nodes | Meaning of proximity |
 |---|---|---|
 | **Methods** | 147 TaDiRAH activities | the same objects use them |
-| **Objects** | 2,376 tools, datasets, tutorials, publications, workflows | they share methods |
+| **Objects** | 2,379 tools, datasets, tutorials, publications, workflows | they share methods |
 
 **Six things you can do with it:**
 
@@ -44,26 +46,29 @@ CSV export of the gap analysis, and shareable `#`-URLs that restore the exact vi
 
 Only ETKAD tags methods **per stage, in order** — the Marketplace does not — so this is the
 one question the Estonian data can answer and the European data cannot. Normalising each
-workflow's stages to 0..1 and averaging across the 9 workflows that break themselves into
-ordered stages gives:
+workflow's stages to 0..1 and averaging across all 13 workflows, each of which breaks itself
+into ordered stages, gives:
 
 ```
-Capture ....... 0.00        (3 taggings)   earliest, and only ever first
-Discovery ..... early       (15)
-Enrichment .... early-mid   (20)
-Storage ....... mid         (8)
-Analysis ...... mid         (49)  — by far the most tagged
-Interpretation  mid-late    (12)
-Creation ...... late        (22)
-Dissemination . latest      (12)
+Discovery ..... 0.22   (22 taggings)   earliest
+Enrichment .... 0.31   (28)
+Capture ....... 0.32   (10)
+Storage ....... 0.42   (17)
+Analysis ...... 0.53   (71)  — by far the most tagged
+Interpretation  0.59   (23)
+Creation ...... 0.70   (28)
+Dissemination . 0.82   (18)  latest
 ```
 
-That arc — capture, discover, enrich, analyse, interpret, create, disseminate — is close to
-TaDiRAH's own conceptual ordering, **recovered empirically from nine Estonian workflows that
-were never asked to follow it**. The most common transitions are Analysis→Creation (10),
-Enrichment→Analysis (8) and Analysis→Enrichment (7). That third one runs backwards, which is
-the useful detail: these workflows iterate between enriching and analysing rather than
-proceeding down a pipeline.
+That arc — discover, enrich and capture, analyse, interpret, create, disseminate — is close
+to TaDiRAH's own conceptual ordering, **recovered empirically from thirteen Estonian workflows
+that were never asked to follow it**. With nine workflows Capture came first (on 3 taggings);
+with thirteen, Discovery does — the work starts by finding out what exists, which is also
+what workflow-galaxy finds across 57 workflows from three sources. The most common
+transitions are Enrichment→Analysis (13), Analysis→Creation (13), Analysis→Interpretation (8)
+and Discovery→Analysis (8), with Analysis→Enrichment (7) running backwards — the useful
+detail: these workflows iterate between enriching and analysing rather than proceeding down
+a pipeline.
 
 ## Measured results
 
@@ -71,15 +76,16 @@ proceeding down a pipeline.
 SSH Open Marketplace harvested   6,305 items   (64 API calls; properties come back inline)
   ... carrying a TaDiRAH activity 2,366  (38%)
       tools & services 1,892 · training 223 · datasets 105 · publications 73 · workflows 73
-ETKAD workflows                     10   (all 10 parsed, 8-20 methods each, 0-11 stages)
-Estonian TaDiRAH terms              84 distinct -> 82 mapped to TaDiRAH2, 2 unmapped
+ETKAD workflows                     13   (all 13 parsed, 8-22 methods each, 4-11 stages)
+Estonian TaDiRAH terms              81 distinct -> 77 mapped to TaDiRAH2, 4 unmapped
 distinct methods in play           147
-methods used by ETKAD               61   (41%)
-map                              147 methods + 2,376 objects, 6 layouts, 1.8 MB of HTML
+methods used by ETKAD               73   (50%)
+map                              147 methods + 2,379 objects, 6 layouts, 1.9 MB of HTML
 ```
 
-**The headline number is 61 of 147.** Estonian workflows touch 41% of the method vocabulary
-that European DH objects use. The other 86 methods are the map's most interesting region.
+**The headline number is 73 of 147.** Estonian workflows touch half of the method vocabulary
+that European DH objects use. The other 74 methods are the map's most interesting region.
+(With the first ten workflows it was 61 of 147; the three newer ones added 12 methods.)
 
 **The discovered layout partly recovers TaDiRAH's own hierarchy.** Colour by "TaDiRAH goal"
 and the Storage methods (Preserving, Cataloging, Organizing, Preservation Metadata, Storing)
@@ -124,7 +130,7 @@ space is the opposite — large and dominated by ubiquitous methods, so PPMI is 
 shape. Switch metrics in the left rail and watch which groupings survive; the ones that do
 are the robust ones.
 
-**Cluster labels are computed from Marketplace titles only.** Including the ten ETKAD titles
+**Cluster labels are computed from Marketplace titles only.** Including the ETKAD titles
 put fragments of Estonian words into the labels: ten documents out of 2,376 dominated c-TF-IDF
 because their vocabulary appears nowhere else in the corpus.
 
@@ -136,11 +142,11 @@ because their vocabulary appears nowhere else in the corpus.
   across the corpus. This is not a flaw to apologise for; it is the argument. Discovery runs
   on what was declared, not on what was done.
 - **The object space compares unlike things.** ETKAD workflows carry 8–20 methods each because
-  they are workflows; most Marketplace entries are single-purpose tools with 1–3. So the ten
+  they are workflows; most Marketplace entries are single-purpose tools with 1–3. So the
   Estonian dots cluster together partly for a structural reason rather than an intellectual
   one. The **method space is the fairer comparison** — use the object space for the
   recommender, not for "where does Estonia sit".
-- **n = 10 on the Estonian side.** Every statement about Estonian practice here is about ten
+- **n = 13 on the Estonian side.** Every statement about Estonian practice here is about thirteen
   workflows from one hackathon-and-course pipeline, not about Estonian DH.
 - **147 methods is the whole vocabulary, not the whole discipline.** TaDiRAH2 has no term for
   several things these workflows clearly do.

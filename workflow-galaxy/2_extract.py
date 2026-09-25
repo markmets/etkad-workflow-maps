@@ -101,7 +101,11 @@ TOOL_MATCH_STOP = {
 
 # Names that cannot be mistaken for an ordinary word: a digit, an internal
 # capital, or punctuation inside the name.
-DISTINCTIVE = re.compile(r"[0-9]|(?<=.)[A-Z]|[._/+-]")
+# Only a lowercase-to-capital change inside a word counts as an internal
+# capital (OpenRefine, EstNLTK). A capital after a space made Title Case phrases
+# such as "Time Periods" distinctive, and all-caps names such as BASE and TAGS
+# then matched "base form" and "metadata tags".
+DISTINCTIVE = re.compile(r"[0-9]|[a-z][A-Z]|[._/+-]")
 
 STOP_TEXT = set("""a an the and or of to in for with on at by from as is are was were be been
 this that these those it its into their there here we you your our can will may
@@ -270,7 +274,8 @@ def from_etkad(w, unmapped):
     desc = next((s.get("text", "") for s in w["stages"] if s.get("text")), "")
     return {
         "id": w["id"], "src": "etkad", "title": w["title"],
-        "desc": desc[:400], "url": w["url"], "lang": "Estonian",
+        "desc": desc[:400], "url": w["url"],
+        "lang": "Estonian, English version" if w.get("lang") == "en" else "Estonian",
         "methods": methods, "method_src": "declared",
         "steps": steps,
         "topics": sorted(set(w["discipline"] + w["content_kw"])),

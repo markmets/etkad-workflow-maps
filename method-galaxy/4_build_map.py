@@ -299,7 +299,7 @@ function draw(){
     });
   }
 
-  /* nodes — Estonian ones last so ten pink dots stay findable among 2,376 */
+  /* nodes — Estonian ones last so thirteen pink dots stay findable among 2,379 */
   const order0=[...C.nodes.keys()].sort((a,b)=>{
     const ea2=(C.nodes[a].origin==='etkad'||C.nodes[a].etkad>0)?1:0;
     const eb2=(C.nodes[b].origin==='etkad'||C.nodes[b].etkad>0)?1:0;
@@ -576,7 +576,7 @@ function shapeReport(){
     <h4>Latest methods</h4>
     <div>${late.map(m=>`<span class="chip" data-goto="${esc(m.id)}">${esc(m.id)}</span>`).join('')}</div>
     <p class="sub" style="margin-top:14px">Only methods tagged in at least two stages
-      anywhere in the corpus are listed, and the whole view rests on ten workflows —
+      anywhere in the corpus are listed, and the whole view rests on thirteen workflows —
       read it as a hypothesis about how humanities workflows are shaped, not a measurement.</p>`;
   side.querySelectorAll('[data-goto]').forEach(el=>el.onclick=(e)=>{
     e.preventDefault();

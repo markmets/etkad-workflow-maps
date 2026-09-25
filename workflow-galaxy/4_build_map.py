@@ -400,7 +400,7 @@ a:hover{border-bottom-color:var(--accent2)}
     <div class="card">
       <h2>What am I looking at?</h2>
       <p class="lede">Every dot is one research workflow — a project written down as
-      the steps it went through. There are 237 of them, from three places.</p>
+      the steps it went through. There are 240 of them, from three places.</p>
       <p>They are drawn so that <b>workflows resembling each other sit close
       together</b>. Nothing here knows what any project is <em>about</em> in the way
       a reader would. It only knows what each one declared: the methods it names,
@@ -413,7 +413,7 @@ a:hover{border-bottom-color:var(--accent2)}
       <div class="grid">
         <div><b>SSH Open Marketplace</b>108 European DH workflows</div>
         <div><b>Programming Historian</b>119 tutorial lessons</div>
-        <div><b>ETKAD</b>10 Estonian workflows, labelled by default</div>
+        <div><b>ETKAD</b>13 Estonian workflows (English versions), labelled by default</div>
         <div><b>Click a dot</b>to read it and see what it resembles</div>
       </div>
       <p style="color:var(--ink3);font-size:13.5px">Drag to move the map, scroll to

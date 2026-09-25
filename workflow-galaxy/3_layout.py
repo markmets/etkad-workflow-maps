@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Stage 3: one layout per facet, plus everything the browser should not compute.
 
-The corpus is only 237 workflows, which is small enough to change the
+The corpus is only 240 workflows, which is small enough to change the
 architecture: instead of shipping fixed coordinates and hoping the user wants
 the map we built, we ship the *feature vectors* and let the browser recompute
-similarity live as the facet weights move. 237 x 237 cosine over sparse vectors
+similarity live as the facet weights move. 240 x 240 cosine over sparse vectors
 is a few milliseconds of JavaScript.
 
 Positions still need a real embedding, so a UMAP per facet is precomputed here
